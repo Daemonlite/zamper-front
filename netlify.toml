@@ -2,3 +2,17 @@
 from = "/*"
 to = "/index.html"
 status = 200
+
+[[redirects]]
+  from = "/pathx"
+  to = "https://zamper-server.onrender.com/patha"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
+  
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+
