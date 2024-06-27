@@ -105,12 +105,13 @@ export default function DashboardDefault() {
   }
 
   const isAccountLocked = account && account?.length > 0 && account[0].status === 'Locked';
+  const fullname = name?.user?.firstname + ' ' + name?.user?.lastname;
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       <Grid item xs={8} sm={8} lg={4}>
         <EcommerceDataCard title="Primary Account" iconPrimary={<Wallet3 />}>
-          {card?.length > 0 ? <PaymentForm card={card[0]} /> : <Button>Add Card</Button>}
+          {card?.length > 0 && <PaymentForm card={card[0]} fullname={fullname} />}
         </EcommerceDataCard>
       </Grid>
       <Grid item xs={12} sm={8} lg={4}>
