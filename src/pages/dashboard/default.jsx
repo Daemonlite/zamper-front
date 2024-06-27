@@ -104,7 +104,7 @@ export default function DashboardDefault() {
     return <div>Loading...</div>;
   }
 
-  const isAccountLocked = account[0]?.status === 'Locked';
+  const isAccountLocked = account && account.length > 0 && account[0].status === 'Locked';
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -129,12 +129,15 @@ export default function DashboardDefault() {
           >
             <Typography sx={{ fontSize: 32, fontWeight: 'bold' }}>
               $
-              {balance?.toLocaleString('en-US', {
-                minimumFractionDigits: 3
-              }) ||
-                account[0]?.balance.toLocaleString('en-US', {
+              {(balance.length > 0 &&
+                balance?.toLocaleString('en-US', {
                   minimumFractionDigits: 3
-                })}
+                })) ||
+                (account &&
+                  account.length > 0 &&
+                  account[0]?.balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 3
+                  }))}
             </Typography>
 
             <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '50px', margin: '10px 0' }}>
