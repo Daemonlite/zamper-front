@@ -88,8 +88,8 @@ export default function ProfileTab({ user, account }) {
               <Typography variant="h5" id="profile-modal-title">
                 {user?.firstname} {user?.lastname}
               </Typography>
-              <Chip label={account.length > 0 ? `${account[0]?.status} Account` : ''} color="secondary">
-                {account.length > 0 ? `${account[0]?.status} Account` : ''}
+              <Chip label={account?.length > 0 ? `${account[0]?.status} Account` : ''} color="secondary">
+                {account?.length > 0 ? `${account[0]?.status} Account` : ''}
               </Chip>
             </Grid>
           </Box>

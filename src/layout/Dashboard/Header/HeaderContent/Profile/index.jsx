@@ -188,7 +188,7 @@ export default function ProfilePage() {
                           <Stack>
                             <Typography variant="subtitle1">{fullname}</Typography>
                             <Typography variant="body2" color="secondary">
-                              {account.length > 0 ? `${account[0]?.status} Account` : ' '}
+                              {account?.length > 0 ? `${account[0]?.status} Account` : ' '}
                             </Typography>
                           </Stack>
                         </Stack>
