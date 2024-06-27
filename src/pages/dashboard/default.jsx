@@ -108,14 +108,11 @@ export default function DashboardDefault() {
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
-      {card?.length > 0 && (
-        <Grid item xs={8} sm={8} lg={4}>
-          <EcommerceDataCard title="Primary Account" iconPrimary={<Wallet3 />}>
-            {card?.length > 0 && <PaymentForm card={card[0]} />}
-          </EcommerceDataCard>
-        </Grid>
-      )}
-
+      <Grid item xs={8} sm={8} lg={4}>
+        <EcommerceDataCard title="Primary Account" iconPrimary={<Wallet3 />}>
+          {card?.length > 0 ? <PaymentForm card={card[0]} /> : <Button>Add Card</Button>}
+        </EcommerceDataCard>
+      </Grid>
       <Grid item xs={12} sm={8} lg={4}>
         <EcommerceDataCard title="Total Balance" iconPrimary={<Wallet3 />}>
           <Card
@@ -171,18 +168,16 @@ export default function DashboardDefault() {
           </Card>
         </EcommerceDataCard>
       </Grid>
-      {transactions?.length > 0 && (
-        <Grid item xs={12} sm={8} lg={4}>
-          <EcommerceDataCard1
-            title="Total Expends"
-            color="error"
-            iconPrimary={<CloudChange color={theme.palette.error.dark} />}
-            percentage={<Typography color="error.dark">{/* <ArrowDown size={16} style={{ transform: 'rotate(45deg)' }} /> */}</Typography>}
-          >
-            <BankDataChart color={theme.palette.error.dark} transactions={transactions} />
-          </EcommerceDataCard1>
-        </Grid>
-      )}
+      <Grid item xs={12} sm={8} lg={4}>
+        <EcommerceDataCard1
+          title="Total Expends"
+          color="error"
+          iconPrimary={<CloudChange color={theme.palette.error.dark} />}
+          percentage={<Typography color="error.dark">{/* <ArrowDown size={16} style={{ transform: 'rotate(45deg)' }} /> */}</Typography>}
+        >
+          <BankDataChart color={theme.palette.error.dark} transactions={transactions} />
+        </EcommerceDataCard1>
+      </Grid>
 
       <Grid item xs={12} md={8}>
         <RepeatCustomerRate />
