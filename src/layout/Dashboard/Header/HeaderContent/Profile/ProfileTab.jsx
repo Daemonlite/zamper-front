@@ -34,7 +34,7 @@ const modalStyle = {
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
-export default function ProfileTab({ user, account }) {
+export default function ProfileTab({ user, account, handleLogout }) {
   console.log('🚀 ~ ProfileTab ~ name:', user);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -76,7 +76,7 @@ export default function ProfileTab({ user, account }) {
           <ListItemIcon>
             <Logout variant="Bulk" size={18} />
           </ListItemIcon>
-          <ListItemText primary="Logout" />
+          <ListItemText primary="Logout" onClick={handleLogout} />
         </ListItemButton>
       </List>
 
