@@ -25,7 +25,7 @@ import Transitions from 'components/@extended/Transitions';
 import IconButton from 'components/@extended/IconButton';
 
 // assets
-import avatar1 from 'assets/images/users/avatar-6.png';
+import avatar1 from 'assets/images/users/memoji.jpg';
 import { Setting2, Profile, Logout } from 'iconsax-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
