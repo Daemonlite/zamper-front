@@ -28,10 +28,10 @@ import Avatar from 'components/@extended/Avatar';
 import IconButton from 'components/@extended/IconButton';
 // project-imports
 import MainCard from 'components/MainCard';
-import { ThemeMode } from 'config';
 import Transitions from 'components/@extended/Transitions';
 // material-ui
 import { useTheme } from '@mui/material/styles';
+import { ThemeMode } from 'config';
 
 const actionSX = {
   mt: '6px',
