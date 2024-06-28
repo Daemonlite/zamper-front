@@ -114,7 +114,7 @@ export default function ProfilePage() {
       axios.get(`https://zamper-server.onrender.com/balance/${user_id}`).then((res) => {
         if (res.data.Status === 'Success') {
           setAuth(true);
-          setAccount(res.data.account);
+          setAccount(res?.data?.account);
 
           // Log the account state here
           console.log('🚀 Account state:', res.data.account);
@@ -188,7 +188,7 @@ export default function ProfilePage() {
                           <Stack>
                             <Typography variant="subtitle1">{fullname}</Typography>
                             <Typography variant="body2" color="secondary">
-                              {account[0]?.status} Account
+                              {account?.length > 0 ? `${account[0]?.status} Account` : ' '}
                             </Typography>
                           </Stack>
                         </Stack>

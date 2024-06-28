@@ -1,30 +1,37 @@
+import {
+  Badge,
+  Box,
+  Button,
+  ClickAwayListener,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  // IconButton as MuiIconButton,
+  Link,
+  List,
+  ListItemAvatar,
+  ListItemButton,
+  ListItemSecondaryAction,
+  ListItemText,
+  Paper,
+  Popper,
+  Stack,
+  Typography,
+  useMediaQuery
+} from '@mui/material';
+// assets
+import { Notification } from 'iconsax-react';
 import { useRef, useState } from 'react';
 
-// material-ui
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import Box from '@mui/material/Box';
-import Badge from '@mui/material/Badge';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Link from '@mui/material/Link';
-import List from '@mui/material/List';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import ListItemText from '@mui/material/ListItemText';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-// project-imports
-import MainCard from 'components/MainCard';
 import Avatar from 'components/@extended/Avatar';
 import IconButton from 'components/@extended/IconButton';
+// project-imports
+import MainCard from 'components/MainCard';
+import { ThemeMode } from 'config';
 import Transitions from 'components/@extended/Transitions';
-
-// assets
-import { Gift, MessageText1, Notification, Setting2 } from 'iconsax-react';
+// material-ui
+import { useTheme } from '@mui/material/styles';
 
 const actionSX = {
   mt: '6px',
@@ -32,21 +39,33 @@ const actionSX = {
   top: 'auto',
   right: 'auto',
   alignSelf: 'flex-start',
+
   transform: 'none'
 };
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
 
-export default function NotificationPage() {
+const NotificationPage = () => {
   const theme = useTheme();
   const matchesXs = useMediaQuery(theme.breakpoints.down('md'));
 
   const anchorRef = useRef(null);
-  const [read] = useState(2);
   const [open, setOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedNotification, setSelectedNotification] = useState(null);
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
+
+  const data = [
+    {
+      subject: 'Security warning',
+      message:
+        'Be careful about maintaining security and privacy whenever you’re logging into accounts, especially your bank accounts. Keep your username and password out of plain view when logging in, and don’t share your passwords with others.',
+      createdat: 'Thu Jun 27 2024 12:52:16 GMT+0000'
+    }
+  ];
+  console.log('🚀 ~ NotificationPage ~ data:', data);
 
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
@@ -55,8 +74,18 @@ export default function NotificationPage() {
     setOpen(false);
   };
 
-  const iconBackColorOpen = 'secondary.200';
-  const iconBackColor = 'secondary.100';
+  const handleDialogOpen = (notification) => {
+    setSelectedNotification(notification);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    setSelectedNotification(null);
+  };
+
+  const iconBackColorOpen = theme.palette.mode === ThemeMode.DARK ? 'secondary.200' : 'secondary.200';
+  const iconBackColor = theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'secondary.100';
 
   return (
     <Box sx={{ flexShrink: 0, ml: 0.5 }}>
@@ -71,7 +100,7 @@ export default function NotificationPage() {
         size="large"
         sx={{ color: 'secondary.main', bgcolor: open ? iconBackColorOpen : iconBackColor, p: 1 }}
       >
-        <Badge badgeContent={read} color="success" sx={{ '& .MuiBadge-badge': { top: 2, right: 4 } }}>
+        <Badge badgeContent={data?.length} color="primary" sx={{ '& .MuiBadge-badge': { top: 2, right: 4 } }}>
           <Notification variant="Bold" />
         </Badge>
       </IconButton>
@@ -82,7 +111,16 @@ export default function NotificationPage() {
         role={undefined}
         transition
         disablePortal
-        popperOptions={{ modifiers: [{ name: 'offset', options: { offset: [matchesXs ? -5 : 0, 9] } }] }}
+        popperOptions={{
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [matchesXs ? -5 : 0, 9]
+              }
+            }
+          ]
+        }}
       >
         {({ TransitionProps }) => (
           <Transitions type="grow" position={matchesXs ? 'top' : 'top-right'} sx={{ overflow: 'hidden' }} in={open} {...TransitionProps}>
@@ -93,11 +131,13 @@ export default function NotificationPage() {
                 width: '100%',
                 minWidth: 285,
                 maxWidth: 420,
-                [theme.breakpoints.down('md')]: { maxWidth: 285 }
+                [theme.breakpoints.down('md')]: {
+                  maxWidth: 285
+                }
               }}
             >
               <ClickAwayListener onClickAway={handleClose}>
-                <MainCard elevation={0} border="false">
+                <MainCard elevation={0} border={false}>
                   <Stack direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="h5">Notifications</Typography>
                     <Link href="#" variant="h6" color="primary">
@@ -111,108 +151,32 @@ export default function NotificationPage() {
                         p: 1.5,
                         my: 1.5,
                         border: `1px solid ${theme.palette.divider}`,
-                        '&:hover': { bgcolor: 'primary.lighter', borderColor: theme.palette.primary.light },
+                        '&:hover': {
+                          bgcolor: 'primary.lighter',
+                          borderColor: theme.palette.primary.light
+                        },
                         '& .MuiListItemSecondaryAction-root': { ...actionSX, position: 'relative' }
                       }
                     }}
                   >
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar type="filled">
-                          <Gift size={20} variant="Bold" />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            It&apos;s{' '}
-                            <Typography component="span" variant="subtitle1">
-                              Cristina danny&apos;s
-                            </Typography>{' '}
-                            birthday today.
+                    {data?.map((notification) => (
+                      <ListItemButton key={notification.id} onClick={() => handleDialogOpen(notification)}>
+                        <ListItemAvatar>
+                          <Avatar>
+                            <Notification />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={<Typography variant="h6">{notification.subject}</Typography>}
+                          secondary={new Date(notification.createdat).toLocaleString()}
+                        />
+                        <ListItemSecondaryAction>
+                          <Typography variant="caption" noWrap>
+                            {new Date(notification.createdat).toLocaleTimeString()}
                           </Typography>
-                        }
-                        secondary="2 min ago"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          3:00 AM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar type="outlined">
-                          <MessageText1 size={20} variant="Bold" />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography component="span" variant="subtitle1">
-                              Aida Burg
-                            </Typography>{' '}
-                            commented your post.
-                          </Typography>
-                        }
-                        secondary="5 August"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          6:00 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar>
-                          <Setting2 size={20} variant="Bold" />
-                        </Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            Your Profile is Complete &nbsp;
-                            <Typography component="span" variant="subtitle1">
-                              60%
-                            </Typography>{' '}
-                          </Typography>
-                        }
-                        secondary="7 hours ago"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          2:45 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
-
-                    <ListItemButton>
-                      <ListItemAvatar>
-                        <Avatar type="combined">C</Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={
-                          <Typography variant="h6">
-                            <Typography component="span" variant="subtitle1">
-                              Cristina Danny
-                            </Typography>{' '}
-                            invited to join{' '}
-                            <Typography component="span" variant="subtitle1">
-                              Meeting.
-                            </Typography>
-                          </Typography>
-                        }
-                        secondary="Daily scrum meeting time"
-                      />
-                      <ListItemSecondaryAction>
-                        <Typography variant="caption" noWrap>
-                          9:10 PM
-                        </Typography>
-                      </ListItemSecondaryAction>
-                    </ListItemButton>
+                        </ListItemSecondaryAction>
+                      </ListItemButton>
+                    ))}
                   </List>
                   <Stack direction="row" justifyContent="center">
                     <Link href="#" variant="h6" color="primary">
@@ -225,6 +189,30 @@ export default function NotificationPage() {
           </Transitions>
         )}
       </Popper>
+
+      <Dialog open={dialogOpen} onClose={handleDialogClose}>
+        <DialogTitle>Notification Details</DialogTitle>
+        <DialogContent>
+          {selectedNotification && (
+            <>
+              <Typography variant="h6" style={{ textTransform: 'uppercase', marginBottom: '5px' }}>
+                {selectedNotification.subject}
+              </Typography>
+              <MainCard>
+                <Typography variant="body1">{selectedNotification.message}</Typography>
+              </MainCard>
+              <Typography variant="caption">Received At: {new Date(selectedNotification.createdat).toLocaleString()}</Typography>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
-}
+};
+
+export default NotificationPage;

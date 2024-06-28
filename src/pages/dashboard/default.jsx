@@ -104,13 +104,14 @@ export default function DashboardDefault() {
     return <div>Loading...</div>;
   }
 
-  const isAccountLocked = account[0]?.status === 'Locked';
+  const isAccountLocked = account && account?.length > 0 && account[0].status === 'Locked';
+  const fullname = name?.user?.firstname + ' ' + name?.user?.lastname;
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       <Grid item xs={8} sm={8} lg={4}>
         <EcommerceDataCard title="Primary Account" iconPrimary={<Wallet3 />}>
-          {card?.length > 0 && <PaymentForm card={card[0]} />}
+          {card?.length > 0 && <PaymentForm card={card[0]} fullname={fullname} />}
         </EcommerceDataCard>
       </Grid>
       <Grid item xs={12} sm={8} lg={4}>
@@ -129,12 +130,15 @@ export default function DashboardDefault() {
           >
             <Typography sx={{ fontSize: 32, fontWeight: 'bold' }}>
               $
-              {balance?.toLocaleString('en-US', {
-                minimumFractionDigits: 3
-              }) ||
-                account[0]?.balance.toLocaleString('en-US', {
+              {(balance?.length > 0 &&
+                balance?.toLocaleString('en-US', {
                   minimumFractionDigits: 3
-                })}
+                })) ||
+                (account &&
+                  account?.length > 0 &&
+                  account[0]?.balance.toLocaleString('en-US', {
+                    minimumFractionDigits: 3
+                  }))}
             </Typography>
 
             <Grid sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '50px', margin: '10px 0' }}>

@@ -263,7 +263,12 @@ export default function EnhancedTable({ transactions }) {
                       {row.id}
                     </TableCell>
                     <TableCell align="left">
-                      <Chip label={row.amount} color="primary" />
+                      <Chip
+                        label={row?.amount?.toLocaleString('en-US', {
+                          minimumFractionDigits: 3
+                        })}
+                        color="primary"
+                      />
                     </TableCell>
                     <TableCell align="left">{row.description}</TableCell>
                     <TableCell align="left">{row.receiver}</TableCell>
