@@ -12,6 +12,10 @@ export const APP_BASE_NAME = '/';
 
 // ==============================|| THEME CONFIG  ||============================== //
 
+export const ThemeMode = {
+  LIGHT: 'light',
+  DARK: 'dark'
+};
 const config = {
   fontFamily: `Inter var`, // Pro Version
   menuOrientation: 'vertical', // Pro Version
