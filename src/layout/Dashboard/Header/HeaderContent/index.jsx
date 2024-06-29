@@ -8,6 +8,7 @@ import Notification from './Notification';
 import MobileSection from './MobileSection';
 import { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
+import axios from 'axios';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
