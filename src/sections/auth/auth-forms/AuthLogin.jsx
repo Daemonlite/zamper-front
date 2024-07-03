@@ -25,8 +25,9 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import { Eye, EyeSlash } from 'iconsax-react';
 import useScriptRef from 'hook/useScriptRef';
 import { useNavigate } from 'react-router';
-import { Snackbar, Alert } from '@mui/material';
+import { Snackbar, Alert, Link } from '@mui/material';
 import { jwtDecode } from 'jwt-decode';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function AuthLogin() {
   const [checked, setChecked] = useState(false);
@@ -202,6 +203,9 @@ export default function AuthLogin() {
                     }
                     label={<Typography variant="h6">Keep me sign in</Typography>}
                   />
+                  <Link variant="h6" component={RouterLink} to={'/auth/forgotPassword'} color="text.primary">
+                    Forgot Password?
+                  </Link>
                 </Stack>
               </Grid>
               {errors.submit && (

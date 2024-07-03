@@ -11,6 +11,7 @@ const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')))
 // pages routing
 const AuthLogin = Loadable(lazy(() => import('pages/auth/login')));
 const AuthRegister = Loadable(lazy(() => import('pages/auth/register')));
+const AuthPassword = Loadable(lazy(() => import('pages/auth/forgotPassword')));
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
@@ -49,6 +50,10 @@ const MainRoutes = {
         {
           path: 'register',
           element: <AuthRegister />
+        },
+        {
+          path: 'forgotPassword',
+          element: <AuthPassword />
         }
       ]
     }
